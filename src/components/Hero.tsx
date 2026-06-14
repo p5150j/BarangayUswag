@@ -15,18 +15,9 @@ export default function Hero() {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
     video.muted = true;
-
-    const attemptPlay = () => video.play().catch(() => {});
-
-    // Try immediately in case it's already buffered
-    attemptPlay();
-
-    // Also fire when browser signals it has enough data — catches the fresh-load case
-    video.addEventListener("canplay", attemptPlay, { once: true });
-
-    return () => video.removeEventListener("canplay", attemptPlay);
+    const p = video.play();
+    if (p !== undefined) p.catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -66,11 +57,11 @@ export default function Hero() {
         muted
         loop
         playsInline
-        preload="auto"
         poster="/hero-poster.jpg"
         className="absolute inset-0 w-full h-full object-cover"
-        src="/hero.mp4"
-      />
+      >
+        <source src="/hero.mp4" type="video/mp4" />
+      </video>
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-[#1c1a16]/60" />
