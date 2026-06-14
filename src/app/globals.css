@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+
+  --color-bg: #faf9f6;
+  --color-surface: #ffffff;
+  --color-raised: #f5f3ee;
+  --color-border: #e8e3d8;
+  --color-ink: #1c1a16;
+  --color-muted: #8a8074;
+  --color-green: #059669;
+  --color-blue: #1e3a8a;
+  --color-blue-dk: #0f1f5a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+body {
+  background-color: #faf9f6;
+  background-image: url("/bg-tribal.svg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: top right;
+  background-repeat: no-repeat;
+  color: #1c1a16;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-serif {
+  font-family: var(--font-playfair), Georgia, serif;
+}

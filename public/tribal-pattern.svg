@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100">
+  <!-- Crocodile teeth pointing down -->
+  <g fill="#1c1a16">
+    <polygon points="0,0 20,0 10,18" opacity="0.08"/>
+    <polygon points="20,0 40,0 30,18" opacity="0.08"/>
+    <polygon points="40,0 60,0 50,18" opacity="0.08"/>
+    <polygon points="60,0 80,0 70,18" opacity="0.08"/>
+    <polygon points="80,0 100,0 90,18" opacity="0.08"/>
+    <polygon points="100,0 120,0 110,18" opacity="0.08"/>
+    <polygon points="120,0 140,0 130,18" opacity="0.08"/>
+    <polygon points="140,0 160,0 150,18" opacity="0.08"/>
+    <polygon points="160,0 180,0 170,18" opacity="0.08"/>
+    <polygon points="180,0 200,0 190,18" opacity="0.08"/>
+    <!-- Inverse teeth filling gaps -->
+    <polygon points="10,18 30,18 20,0" opacity="0.04"/>
+    <polygon points="30,18 50,18 40,0" opacity="0.04"/>
+    <polygon points="50,18 70,18 60,0" opacity="0.04"/>
+    <polygon points="70,18 90,18 80,0" opacity="0.04"/>
+    <polygon points="90,18 110,18 100,0" opacity="0.04"/>
+    <polygon points="110,18 130,18 120,0" opacity="0.04"/>
+    <polygon points="130,18 150,18 140,0" opacity="0.04"/>
+    <polygon points="150,18 170,18 160,0" opacity="0.04"/>
+    <polygon points="170,18 190,18 180,0" opacity="0.04"/>
+  </g>
+  <!-- Thin zigzag accent line -->
+  <path d="M0,65 L10,58 L20,65 L30,58 L40,65 L50,58 L60,65 L70,58 L80,65 L90,58 L100,65 L110,58 L120,65 L130,58 L140,65 L150,58 L160,65 L170,58 L180,65 L190,58 L200,65"
+        fill="none" stroke="#1c1a16" stroke-width="1" opacity="0.055"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <g opacity="0.035">
+    <!-- Philippine sun — center upper-right, mostly off canvas, inner quadrant visible -->
+    <polygon
+      points="1750,-1150 1953,-740 2386,-886 2240,-453 2650,-250 2240,-47 2386,386 1953,240 1750,650 1547,240 1114,386 1260,-47 850,-250 1260,-453 1114,-886 1547,-740"
+      fill="#1c1a16"
+    />
+    <!-- Concentric ring arcs sweep through upper-right -->
+    <circle cx="1750" cy="-250" r="550" fill="none" stroke="#1c1a16" stroke-width="10"/>
+    <circle cx="1750" cy="-250" r="640" fill="none" stroke="#1c1a16" stroke-width="6"/>
+    <circle cx="1750" cy="-250" r="720" fill="none" stroke="#1c1a16" stroke-width="3.5"/>
+  </g>
+</svg>
