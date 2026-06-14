@@ -5,11 +5,20 @@ import gsap from "gsap";
 
 export default function Hero() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const labelRef = useRef<HTMLParagraphElement>(null);
   const h1aRef = useRef<HTMLSpanElement>(null);
   const h1bRef = useRef<HTMLSpanElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const btnRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.muted = true;
+      video.play().catch(() => {});
+    }
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -43,10 +52,12 @@ export default function Hero() {
     >
       {/* Background video */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover"
         src="/hero.mp4"
       />
