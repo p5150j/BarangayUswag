@@ -67,6 +67,7 @@ export default function Hero() {
         loop
         playsInline
         preload="auto"
+        poster="/hero-poster.jpg"
         className="absolute inset-0 w-full h-full object-cover"
         src="/hero.mp4"
       />
