@@ -15,7 +15,6 @@ import {
   PieChart,
   Pie,
   Cell,
-  type TooltipProps,
 } from "recharts";
 
 // ── Brand tokens ──────────────────────────────────────────────────────────────
@@ -126,7 +125,12 @@ function ChartTooltip({
   active,
   payload,
   label,
-}: TooltipProps<number, string>) {
+}: {
+  active?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  payload?: ReadonlyArray<any>;
+  label?: string | number;
+}) {
   if (!active || !payload?.length) return null;
   return (
     <div
@@ -361,7 +365,7 @@ export default function ImpactPage() {
                         }}
                       />
                       <YAxis hide domain={[0, 20]} ticks={[0, 5, 10, 15, 20]} />
-                      <Tooltip content={<ChartTooltip />} cursor={false} />
+                      <Tooltip content={ChartTooltip} cursor={false} />
                       <Bar
                         dataKey="Enrolled"
                         fill={MUTED_BG}
@@ -430,7 +434,7 @@ export default function ImpactPage() {
                       }}
                       width={44}
                     />
-                    <Tooltip content={<ChartTooltip />} cursor={false} />
+                    <Tooltip content={ChartTooltip} cursor={false} />
                     <Bar
                       dataKey="pct"
                       name="Share"
@@ -439,7 +443,8 @@ export default function ImpactPage() {
                       animationDuration={800}
                       label={{
                         position: "right",
-                        formatter: (v: number) => `${v}%`,
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        formatter: (v: any) => (v != null ? `${v}%` : ""),
                         fill: MUTED,
                         fontSize: 11,
                         fontFamily: "inherit",
@@ -481,13 +486,12 @@ export default function ImpactPage() {
                           animationBegin={0}
                           animationDuration={900}
                           strokeWidth={0}
-                          activeShape={{ outerRadius: 100 }}
                         >
                           <Cell fill={GREEN_LIGHT} />
                           <Cell fill={GREEN} />
                         </Pie>
                         <Tooltip
-                          content={<ChartTooltip />}
+                          content={ChartTooltip}
                           wrapperStyle={{ outline: "none" }}
                         />
                       </PieChart>
@@ -566,7 +570,7 @@ export default function ImpactPage() {
                         }}
                         width={48}
                       />
-                      <Tooltip content={<ChartTooltip />} cursor={false} />
+                      <Tooltip content={ChartTooltip} cursor={false} />
                       <Bar
                         dataKey="pct"
                         name="Share"
@@ -575,7 +579,8 @@ export default function ImpactPage() {
                         animationDuration={800}
                         label={{
                           position: "right",
-                          formatter: (v: number) => `${v}%`,
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          formatter: (v: any) => (v != null ? `${v}%` : ""),
                           fill: MUTED,
                           fontSize: 11,
                           fontFamily: "inherit",
