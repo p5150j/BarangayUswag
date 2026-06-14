@@ -14,10 +14,19 @@ export default function Hero() {
 
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
-      video.muted = true;
-      video.play().catch(() => {});
-    }
+    if (!video) return;
+
+    video.muted = true;
+
+    const attemptPlay = () => video.play().catch(() => {});
+
+    // Try immediately in case it's already buffered
+    attemptPlay();
+
+    // Also fire when browser signals it has enough data — catches the fresh-load case
+    video.addEventListener("canplay", attemptPlay, { once: true });
+
+    return () => video.removeEventListener("canplay", attemptPlay);
   }, []);
 
   useEffect(() => {
