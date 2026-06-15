@@ -1,24 +1,26 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import gsap from "gsap";
+
+const VideoBackground = dynamic(() => import("./VideoBackground"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="absolute inset-0 bg-cover bg-center"
+      style={{ backgroundImage: "url(/hero-poster.jpg)" }}
+    />
+  ),
+});
 
 export default function Hero() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const labelRef = useRef<HTMLParagraphElement>(null);
   const h1aRef = useRef<HTMLSpanElement>(null);
   const h1bRef = useRef<HTMLSpanElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const btnRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = true;
-    const p = video.play();
-    if (p !== undefined) p.catch(() => {});
-  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -50,18 +52,8 @@ export default function Hero() {
       ref={rootRef}
       className="relative overflow-hidden min-h-[100svh] flex items-center border-b border-[#e8e3d8]"
     >
-      {/* Background video */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="/hero-poster.jpg"
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="/hero.mp4" type="video/mp4" />
-      </video>
+      {/* Background video — ssr:false prevents hydration from interrupting autoplay */}
+      <VideoBackground />
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-[#1c1a16]/60" />
