@@ -8,8 +8,17 @@ export default function VideoBackground() {
     const video = videoRef.current;
     if (!video) return;
     video.muted = true;
-    const p = video.play();
-    if (p !== undefined) p.catch(() => {});
+
+    video.play().catch(() => {
+      // iOS blocked autoplay on fresh load — play on first touch instead
+      const unlock = () => {
+        video.play().catch(() => {});
+      };
+      document.addEventListener("touchstart", unlock, {
+        once: true,
+        passive: true,
+      });
+    });
   }, []);
 
   return (
