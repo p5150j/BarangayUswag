@@ -1,18 +1,8 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import gsap from "gsap";
-
-const VideoBackground = dynamic(() => import("./VideoBackground"), {
-  ssr: false,
-  loading: () => (
-    <div
-      className="absolute inset-0 bg-cover bg-center"
-      style={{ backgroundImage: "url(/hero-poster.jpg)" }}
-    />
-  ),
-});
+import VideoBackground from "./VideoBackground";
 
 export default function Hero() {
   const rootRef = useRef<HTMLDivElement>(null);
