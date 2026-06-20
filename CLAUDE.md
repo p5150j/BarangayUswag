@@ -477,3 +477,41 @@ Prettier is configured. Run `npx prettier --write <file>` after edits. The PostT
 Netlify. Build command: `npm run build`. Repo: `github.com/p5150j/BarangayUswag`. Netlify auto-deploys on push to `main`.
 
 All environment variables must be added in Netlify Site Settings → Environment Variables. The `.env.local` file is gitignored and never committed.
+
+---
+
+## Key External Documents
+
+**Location Pitch Deck (Google Slides)**
+Used to pitch barangay reading centers, libraries, and community spaces as session venues. Shows LGU officials and barangay captains what hosting looks like — zero cost to them, equipment brought in.
+https://docs.google.com/presentation/d/1tL1Ks1ynf0iqKAC4pAPQMdxGzpug6f5SfI9T-VxEMTA/edit?slide=id.g3ec333d6628_0_3#slide=id.g3ec333d6628_0_3
+
+**Outreach Plan (Google Doc)**
+Patrick's outreach strategy for reaching parents, barangay leaders, and the community ahead of the first cohort launch.
+https://docs.google.com/document/d/124gPr0mIeAXYUInHI26BEv4gBFolNNHoeAMNlgCt3HM/edit?usp=sharing
+
+---
+
+## Roadmap / Future Features
+
+Items discussed but not yet built:
+
+- **Facebook page** — not live yet. Contact page and footer have `href="#"` placeholders. Swap to real URL when ready.
+- **Donate flow** — `/donate` page exists but is hidden from nav. Hardware shipping logistics TBD before enabling.
+- **Short-form reels** — 9:16 vertical video per curriculum topic, filmed after first cohort runs. Full explainer video is on hold.
+- **Alumni survey system** — needed to track Community Multiplier (impact dimension 04). Post-cohort follow-up at 6 and 12 months.
+- **Advanced cohorts / hackathons** — mentioned on About page as "What Comes Next" but not built.
+
+### Impact Methodology — 5 Dimensions
+
+The impact page methodology table tracks these dimensions. Build them out in order as the program matures:
+
+| #   | Dimension                     | Status                            | Formula                                           |
+| --- | ----------------------------- | --------------------------------- | ------------------------------------------------- |
+| 01  | Direct Educational Reach      | **Tracking** (live via Firestore) | Phase 4 graduates ÷ Phase 1 enrollments           |
+| 02  | Digital Skills Density        | Planned                           | Apps shipped × complexity score (1–5 rubric)      |
+| 03  | Economic Opportunity Unlocked | Planned                           | Graduates × ₱ estimated annual wage lift          |
+| 04  | Community Multiplier          | Planned                           | Tracked annually via alumni survey                |
+| 05  | Network Capital               | Planned                           | Mentors × active connections + tracked placements |
+
+Dimensions 02–05 need longer program history and/or alumni survey infrastructure before they can be measured. Dimension 02 is next most feasible once sessions run.
