@@ -30,11 +30,11 @@ const STATUS_CONFIG = {
 const PHASES = [
   {
     num: 1,
-    title: "Think Like an App Builder",
-    sub: "Design Thinking & Systems",
+    title: "Think + Design",
+    sub: "Design Thinking & Community Problem",
   },
-  { num: 2, title: "Design & User Empathy", sub: "UI/UX & Product Design" },
-  { num: 3, title: "The App Code Build", sub: "React Native & Expo" },
+  { num: 2, title: "Plan the Build", sub: "Data Model & App Blueprint" },
+  { num: 3, title: "Build", sub: "React Native & Expo" },
   { num: 4, title: "Ipakita", sub: "Capstone · Demo Day" },
 ];
 

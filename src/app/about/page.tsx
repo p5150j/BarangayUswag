@@ -13,27 +13,27 @@ export const metadata: Metadata = {
 const phases = [
   {
     number: "01",
-    title: "Think Like an App Builder",
-    sub: "Design Thinking & Systems",
-    desc: "Before writing a single line of code, kabataan learn how the apps they already love actually work. What happens when you tap a button? Why does a feed update? We look at real apps to understand the systems behind them: data, events, and how everything connects. By the end, the whole digital world looks different.",
+    title: "Think + Design",
+    sub: "Design Thinking & Community Problem",
+    desc: "Before a single screen is sketched, the cohort identifies a real problem in their own barangay. Design thinking and empathy mapping are the tools. The output is a wireframe that solves something real for someone they actually know. Fast, hands-on, and grounded in the community.",
   },
   {
     number: "02",
-    title: "Design & User Empathy",
-    sub: "UI/UX & Product Design",
-    desc: "Every app you love was designed to feel easy. That didn't happen by accident. Kids learn to think about who uses something, what they actually need, and why they behave the way they do. Then they sketch out something better. This is UI/UX: the difference between an app people use and one they abandon.",
+    title: "Plan the Build",
+    sub: "Data Model & App Blueprint",
+    desc: "The wireframes become a contract. As a class, the cohort maps out exactly what the app needs to store and do. This is the data model. Patrick takes that blueprint outside of class to scaffold the app skeleton, config, and navigation. No one hits a wall they can't see past.",
   },
   {
     number: "03",
-    title: "The App Code Build",
+    title: "Build",
     sub: "React Native & Expo",
-    desc: "Laptops open. Code starts flowing. Kabataan build a real mobile app using React Native and Expo, the same tools professional developers use every day. At the end, they have something that runs on an actual phone. Not a simulation. Not a screenshot. A real app.",
+    desc: "Laptops open. The skeleton is already there. Kabataan build the visible layer: screens, buttons, colors, forms. Every piece wires back to the wireframe they drew and the data model they agreed on. They can see every design decision become real code.",
   },
   {
     number: "04",
     title: "Ipakita",
     sub: "Capstone · Demo Day",
-    desc: "Every kabataan prepares a slide deck: who their app is for, what problem it solves, how it works. Then they demo it live in front of parents, volunteers, and community leaders. Then everyone celebrates. Holding up a phone and saying 'I built this' deserves a party.",
+    desc: "The working app is presented live to the barangay captain, parents, and SK officers. The community keeps it. Every kabataan holds up a phone and says 'I built this.' That deserves a party. Advanced cohorts are the door that opens next.",
   },
 ];
 
@@ -125,12 +125,13 @@ export default function AboutPage() {
               Curriculum
             </p>
             <h2 className="font-serif text-3xl sm:text-5xl font-bold text-white leading-tight mb-4 max-w-2xl">
-              Zero experience. Four phases. One kabataan with a shipped app and
-              the pitch to match.
+              Zero experience. Four phases. One real app built for the
+              community, by the community.
             </h2>
             <p className="text-white/45 text-base max-w-xl leading-relaxed mb-0">
-              No prerequisites, no laptop required, no experience needed. Just
-              show up. Padayon. We handle the rest.
+              No prerequisites, no laptop required, no experience needed. The
+              cohort builds one shared app together — something their barangay
+              will actually use after Demo Day.
             </p>
           </FadeUp>
           <AnimatedPhaseList phases={phases} />
