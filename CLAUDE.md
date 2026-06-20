@@ -501,6 +501,34 @@ Items discussed but not yet built:
 - **Short-form reels** — 9:16 vertical video per curriculum topic, filmed after first cohort runs. Full explainer video is on hold.
 - **Alumni survey system** — needed to track Community Multiplier (impact dimension 04). Post-cohort follow-up at 6 and 12 months.
 - **Advanced cohorts / hackathons** — mentioned on About page as "What Comes Next" but not built.
+- **Volunteer page kanban redesign** — see full spec below.
+
+### Volunteer Page — Kanban Redesign (Future)
+
+The current volunteer page is a static role list with a generic sign-up modal. It's not tied to real cohort needs and doesn't reflect the community-first spirit of the program.
+
+**The vision:** Replace the static list with a live kanban-style needs board — specific, concrete asks posted by Patrick in `/kuya` for the active/upcoming cohort. Think "we need 2 drivers this Saturday" or "snacks for 30 kids next session" not abstract role categories.
+
+**Core principle:** In Iloilo, tech is not the dominant skill set. A Nanay who brings pandesal and a Senior Engineer who does a Zoom talk are equally essential. The UI must make this felt — not a hierarchy of "tech roles" vs "support roles." Every open need is equally visible and equally valued.
+
+**Data model additions needed:**
+
+- New `needs` Firestore collection: `{ cohortId, cohortName, title, description, category: "local" | "remote", date?, slotsTotal, slotsFilled, status: "open" | "filled" | "closed", createdAt }`
+- `volunteers` collection already exists — link signups to a specific `needId` when applicable
+
+**UI structure proposed:**
+
+- **Active cohort needs board** — kanban-style cards grouped by type (Logistics, Food, Tech, Transport, etc.) showing open slots for the current cohort. Each card has a "I can do this" button that opens a focused sign-up modal pre-filled with the need context.
+- **Remote section** — separate below, for async/Zoom contributions not tied to a specific session date.
+- **General sign-up** — fallback for people who want to help but don't see a specific need that fits.
+
+**Admin side (`/kuya`):**
+
+- Patrick posts specific needs per cohort before each session
+- Sees who signed up for each need
+- Can mark needs as filled/closed
+
+**Why this matters:** Iloilo is not Silicon Valley. The people who will show up are neighbors, titas, manongs — not engineers looking for an open-source contribution. The volunteer experience must speak to them first, in concrete terms they can act on immediately.
 
 ### Impact Methodology — 5 Dimensions
 
