@@ -10,6 +10,8 @@ Guidance for Claude Code when working in this repository.
 
 **Founded by:** Patrick Ortell (Kuya Patrick) — a Techstars mentor and software engineer who moved to Iloilo City and wants to share the tech skills that built his career with the kabataan on his street.
 
+**Program reality:** Patrick teaches 1 cohort at a time, personally. 4–8 weekly sessions covering 4 phases sequentially. Cannot run multiple cohorts simultaneously.
+
 **Primary audiences:**
 
 - Parents (mga ginikanan) — local Iloilo families browsing on mobile
@@ -51,6 +53,7 @@ The two-part story:
 | Animations | GSAP 3 + ScrollTrigger                                                             |
 | Charts     | Recharts 3                                                                         |
 | Icons      | Lucide React                                                                       |
+| Database   | Firebase Firestore (client SDK only, no auth)                                      |
 | Fonts      | Inter (sans, via `--font-inter`) + Playfair Display (serif, via `--font-playfair`) |
 
 **Key dependencies:**
@@ -61,6 +64,7 @@ The two-part story:
 "next": "16.2.9"
 "react": "19.2.4"
 "lucide-react": "^1.18.0"
+"firebase": "^11.x"
 ```
 
 ---
@@ -83,30 +87,159 @@ The two-part story:
 
 ---
 
+## Environment Variables
+
+Stored in `.env.local` (gitignored). Must be set in Netlify environment settings for production.
+
+```
+# Firebase client SDK (safe to expose — go to the browser)
+NEXT_PUBLIC_FIREBASE_API_KEY
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+NEXT_PUBLIC_FIREBASE_PROJECT_ID
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+NEXT_PUBLIC_FIREBASE_APP_ID
+
+# Firebase Admin SDK (server-only — never commit)
+FIREBASE_SERVICE_ACCOUNT_KEY   # Full service account JSON on one line
+
+# Admin page protection
+ADMIN_SECRET                   # Random string, used to protect /kuya session log
+
+# Feature flag — flip to "true" when first real cohort data exists in Firestore
+NEXT_PUBLIC_LIVE_DATA=false    # "false" = simulated data + amber banner shown
+                               # "true"  = live Firestore data, banner hidden
+```
+
+---
+
+## Firebase / Firestore Data Model
+
+Project: `barangayuswag`. Four collections, all using cohort-first FK relationships.
+
+### `cohorts`
+
+Source of truth. All other collections reference `cohortId`.
+
+```ts
+interface Cohort {
+  id?: string;
+  name: string;
+  status: "upcoming" | "active" | "completed";
+  venue: string;
+  barangay: string;
+  startDate: string;
+  endDate: string;
+  sessionCount: number;
+  description?: string;
+  createdAt: Date;
+}
+```
+
+**Lifecycle:** `upcoming` (registration open) → `active` (in session, registration closed) → `completed` (archived to Past Sessions tab).
+
+### `registrations`
+
+One doc per child sign-up.
+
+```ts
+interface Registration {
+  id?: string;
+  cohortId: string; // FK to cohorts
+  cohortName: string;
+  childFirstName: string;
+  childLastName: string;
+  age: number;
+  gender: "Male" | "Female" | "Prefer not to say";
+  gradeLevel: string;
+  schoolName: string;
+  barangay: string;
+  hasSmartphone: boolean;
+  guardianName: string;
+  guardianContact: string;
+  heardFrom: string;
+  createdAt: Date;
+}
+```
+
+### `sessions`
+
+One doc per weekly session Patrick logs after it runs.
+
+```ts
+interface Session {
+  id?: string;
+  cohortId: string; // FK to cohorts
+  cohortName: string;
+  venue: string;
+  date: string;
+  phase: 1 | 2 | 3 | 4;
+  kidsPresent: number;
+  volunteersPresent: number;
+  volunteerHours: number;
+  appsShipped: number;
+  notes: string;
+  createdAt: Date;
+}
+```
+
+### `volunteers`
+
+One doc per volunteer sign-up (public form).
+
+```ts
+interface Volunteer {
+  id?: string;
+  name: string;
+  contact: string;
+  type: "local" | "remote";
+  localRole?: string;
+  remoteRole?: string;
+  cohortId?: string; // optional FK to cohorts
+  cohortName?: string;
+  shippingHardware: boolean;
+  hardwareType?: string;
+  location?: string;
+  notes?: string;
+  createdAt: Date;
+}
+```
+
+---
+
 ## Site Structure
 
 ```
 src/
   app/
-    layout.tsx          — Root layout: Nav + Footer wrapping all pages
-    page.tsx            — Homepage: Hero + AudiencePillars + TheStory
-    about/page.tsx      — About: curriculum phases, outcomes, what's next, origin story
-    classes/page.tsx    — Classes: 4-phase workshop cards + tab toggle (upcoming/past)
-    volunteer/page.tsx  — Volunteer: local roles + remote roles (with hardware donation)
-    impact/page.tsx     — Impact: simulated data room with Recharts charts
-    contact/page.tsx    — Contact: simple form / reach-out page
-    donate/page.tsx     — Donate: hidden from nav (hardware logistics TBD)
+    layout.tsx              — Root layout: Nav + Footer wrapping all pages
+    page.tsx                — Homepage: Hero + AudiencePillars + TheStory
+    about/page.tsx          — About: curriculum phases, outcomes, what's next, origin story
+    classes/page.tsx        — Classes: live cohort cards from Firestore + tab toggle
+    volunteer/page.tsx      — Volunteer: local + remote role cards, VolunteerCTA buttons
+    impact/page.tsx         — Impact: live/simulated data room with Recharts charts
+    contact/page.tsx        — Contact: Facebook CTA + Iloilo City location + map
+    kuya/page.tsx           — Hidden admin page (not in nav)
+    donate/page.tsx         — Donate: hidden from nav (hardware logistics TBD)
   components/
-    Nav.tsx             — Sticky header, mobile hamburger, Donate hidden
-    Hero.tsx            — Full-bleed video hero with GSAP text animations
-    AudiencePillars.tsx — 3 audience cards (parents, leaders, volunteers)
-    TheStory.tsx        — Pull-quote band + editorial story + pillars strip
-    Footer.tsx          — Volunteer CTA band + nav links + social
-    FadeUp.tsx          — Reusable GSAP scroll-triggered fade-up wrapper
-    AnimatedPhaseList.tsx  — GSAP animated curriculum phase list (used on About)
+    Nav.tsx                 — Sticky header, mobile hamburger. Order: Classes · Impact · Volunteer · About · Contact
+    Hero.tsx                — Full-bleed video hero with GSAP text animations
+    AudiencePillars.tsx     — 3 audience cards (parents, leaders, volunteers)
+    TheStory.tsx            — Pull-quote band + editorial story + pillars strip
+    Footer.tsx              — Volunteer CTA band + nav links + Facebook only in Connect column
+    FadeUp.tsx              — Reusable GSAP scroll-triggered fade-up wrapper
+    AnimatedPhaseList.tsx   — GSAP animated curriculum phase list (used on About)
     AnimatedOutcomeList.tsx — GSAP animated outcomes list (used on About)
-    TribalSun.tsx       — Decorative SVG component
-    TribalTeeth.tsx     — Decorative SVG component
+    RegistrationModal.tsx   — Child registration form modal, writes to Firestore registrations
+    VolunteerModal.tsx      — Volunteer sign-up modal, writes to Firestore volunteers
+    VolunteerCTA.tsx        — Thin "use client" wrapper + React portal for VolunteerModal
+    TribalSun.tsx           — Decorative SVG component
+    TribalTeeth.tsx         — Decorative SVG component
+  lib/
+    firebase.ts             — Firebase client SDK init, exports `db`
+    types.ts                — TypeScript interfaces: Cohort, Registration, Session, Volunteer
+    constants.ts            — ILOILO_BARANGAYS (~70 entries), GRADE_LEVELS, HEARD_FROM_OPTIONS,
+                              LOCAL_ROLES, REMOTE_ROLES
 public/
   hero.mp4             — Homepage background video (41s loop, 1280×720)
   mission-bg.png       — Pull-quote section background (TheStory.tsx)
@@ -146,7 +279,7 @@ Three components stacked: `Hero` → `AudiencePillars` → `TheStory`
 
 ### About (`/about`)
 
-Four sections:
+Five sections:
 
 1. **Page hero** — Dark full-bleed with ambient green glow + film grain texture
 2. **Curriculum** — `AnimatedPhaseList` with 4 phases: Think Like an App Builder / Design & User Empathy / The App Code Build / Ipakita
@@ -156,74 +289,142 @@ Four sections:
 
 ### Classes (`/classes`)
 
+- "use client" — fetches cohorts + registration counts from Firestore on mount via `Promise.all`
 - Hero: `classes-hero.png` background + dark overlay
-- Tab toggle: Upcoming / Past Sessions (client component with `useState`)
-- 4 phase cards (grid 2×2): each has image header with dark overlay, phase label, "Coming Soon" badge, title, sub, desc, date/time/venue/ages details
-- All register buttons are **disabled** ("Coming Soon" span, `cursor-not-allowed`) — dates TBD
+- Tab toggle: **Current** / **Past Sessions**
+- **CohortCard** (current): dark `#1c1a16` header with status badge, live registration count ("X kabataan registered"), details strip (Venue, Start Date, Ages, Sessions), 4-phase curriculum grid, amber notice when active. Register button only appears when status === "upcoming"
+- **PastCohortCard** (completed): compact row with cohort name, venue, end date
+- Empty states: polished with faded Lucide icon in soft ring, Filipino eyebrow label ("Simula" / "Padayon"), Facebook CTA on the "coming soon" state
 - Bottom CTA: "Have a space in Iloilo City?" → `/contact`
+- **RegistrationModal** opens with real `cohortId` + `cohortName` passed in
+
+**Cohort status meanings:**
+
+- `upcoming` — registration open, Register button shown
+- `active` — in session, registration closed ("Registration Closed" pill shown)
+- `completed` — archived, shown on Past Sessions tab only
 
 ### Volunteer (`/volunteer`)
 
-Two column cards: Local (dark `#1c1a16`) + Remote (light `#f5f3ee`)
+Server component (keeps metadata export). Two column cards: Local (dark `#1c1a16`) + Remote (light `#f5f3ee`).
+
+Each card's CTA is `<VolunteerCTA>` — a thin "use client" wrapper that renders `VolunteerModal` via **React portal** (to escape GSAP stacking context from FadeUp transforms).
 
 **Local roles:** Manong Drivers, Nanay Snack Brigade, Chaperones (Lolo/Lola/Tita/Tito), Hiligaynon Translators, Flyer Crew, Barangay & SK Connectors, Facebook Group Admins
 
-**Remote roles:** Accelerator Alumni & Founders, App Builders & Indie Makers, Industry & Big Tech Speakers, UX & Design Specialists, Specialist Engineers, Remote Work Advocates, **Send Your Old Laptop**, **Send Your Old Android**
+**Remote roles:** Accelerator Alumni & Founders, App Builders & Indie Makers, Industry & Big Tech Speakers, UX & Design Specialists, Specialist Engineers, Remote Work Advocates, Send Your Old Laptop, Send Your Old Android
 
 ### Impact (`/impact`)
 
-Full simulated data room (all data is placeholder — displayed with an amber disclaimer banner). Built with Recharts.
+Live/simulated data room. Controlled by `NEXT_PUBLIC_LIVE_DATA` env var.
+
+**Feature flag behavior:**
+
+- `false` (default): all data is simulated placeholder. Amber sticky banner shown. "Building in Public / Honest from day one" section shown at bottom.
+- `true`: `useLiveData()` hook fetches live Firestore data (registrations, sessions, volunteers). Banner and "Building in Public" section hidden automatically (gated on `liveMetrics !== null`).
+
+**`useLiveData()` hook computes from Firestore:**
+
+- `kabataan` — total registrations count
+- `appsShipped` — sum of `appsShipped` from phase-4 sessions
+- `volHours` — sum of `volunteerHours` across all sessions
+- `barangayCount` — unique venue count from sessions
+- `volSignups` — total volunteer sign-ups
+- `hardwareDonors` — volunteers where `shippingHardware === true`
+- Cohort chart data, age buckets, gender split (3 options), barangay reach
 
 **Charts:**
 
-- **Cohort enrollment** — `BarChart` with grouped bars (Enrolled vs Graduated per cohort). Custom `CustomTooltip` component.
-- **Age distribution** — Horizontal `BarChart` with age range on Y axis, percentage on X.
-- **Gender split** — `PieChart` with `Cell` fills and center label overlay.
-- **Barangay reach** — Horizontal `BarChart` showing % of students per barangay.
+- **Cohort enrollment** — `BarChart` grouped bars (Enrolled vs Graduated). `ChartTooltip` component.
+- **Age distribution** — Horizontal `BarChart`, age range on Y axis (width 44), percentage on X.
+- **Gender split** — `PieChart` donut. Fully dynamic: `GENDER_COLORS = [GREEN_LIGHT, GREEN, MUTED]` mapped over data — handles 2 or 3 slices. Center label shows largest slice. Legend maps over data. Supports "Male", "Female", "Prefer not to say". Zero-value slices filtered out.
+- **Barangay reach** — Horizontal `BarChart`. Y-axis `width={120}` + `left: 8` margin to prevent long barangay names from clipping.
 
 **Brand tokens** defined at top of file: `GREEN`, `GREEN_LIGHT`, `MUTED_BG`, `INK`, `MUTED`
 
-**Metrics strip:** 4 KPI cards (Kabataan Served, Apps Shipped, Volunteer Hours, Barangays Reached) each with a tiny 3-point sparkline `AreaChart`.
+**Metrics strip:** 4 KPI cards with 3-point sparkline `AreaChart` each:
 
-**Gallery:** Bento grid using local `gallery-*.png` images. CSS grid with `col-span-2 row-span-2` for gallery-1 (the large golden hour image).
+- Kabataan Served: note shows cohort count
+- Apps Shipped: note shows completion %
+- Volunteer Hours: note shows `"X signed up · Y shipping hardware"`
+- Barangays Reached: note lists venue names
 
-**Impact dimensions:** 4 measurement framework cards explaining how metrics are defined.
+**Gallery:** Bento grid using local `gallery-*.png` images.
+
+**Impact methodology table:** 5 dimensions with status column:
+
+- `"tracking"` (green dot "● Tracking") — Direct Educational Reach (currently measured)
+- `"planned"` (muted dot "○ Planned") — Digital Skills Density, Economic Opportunity, Community Multiplier, Network Capital
+
+**Mandate alignment section:** DepEd MATATAG, DICT RA 11927, LGU/SK (SK Reform Act RA 10742 + HB 03259).
 
 ### Contact (`/contact`)
 
-Simple reach-out page. CTA to email or fill form.
+- Hero: dark, "We'd love to hear from you."
+- Left column: Facebook CTA button (Facebook blue `#1877F2`, `href="#"` until page is live) + Location (Iloilo City + link to Classes page for venues)
+- Right column: Google Maps embed for Iloilo City
+- No email address. No Instagram/Twitter.
+
+### Admin (`/kuya`)
+
+Hidden from nav. No auth — security by obscurity (don't link it anywhere). URL must be kept private.
+
+**Sections in order:**
+
+1. **Quick stats** for active cohort: enrolled, sessions logged, volunteer hours, apps shipped
+2. **Cohorts** — list with inline edit (venue, start date, end date), status advance buttons ("Mark In Progress →" / "Mark Completed →"), plus create new cohort form (name, venue, barangay, startDate, endDate, sessionCount, description)
+3. **Log a Session** — form: cohort dropdown (real Firestore IDs), date, phase (1–4), kidsPresent, volunteersPresent, volunteerHours, appsShipped, notes
+4. **Registrations table** — filterable by cohort, shows all child + guardian info
+5. **Session Log table** — all sessions across all cohorts
+6. **Volunteer Sign-Ups table** — filter: All / Local / Remote. Columns: Name, Contact, Type badge, Role, Cohort, Hardware, Location, Notes. Header shows: total · local · remote · shipping hardware counts.
 
 ### Donate (`/donate`)
 
-Hidden from Nav and Footer nav links. Hardware shipping logistics TBD. Page exists but is not linked.
+Hidden from Nav and Footer. Hardware shipping logistics TBD. Page exists but is not linked.
 
 ---
 
 ## Components
 
+### `RegistrationModal.tsx`
+
+Props: `cohortId: string, cohortName: string, onClose: () => void`
+
+Two-step flow: form → "Salamat!" success screen. Fields: childFirstName, childLastName, age, gender (3 options), gradeLevel, schoolName, barangay (dropdown from ILOILO_BARANGAYS), hasSmartphone (toggle), guardianName, guardianContact, heardFrom. Writes to `registrations` collection with cohortId/cohortName FK.
+
+### `VolunteerModal.tsx`
+
+Props: `defaultType: "local" | "remote", onClose: () => void`
+
+Two-step: form → "Salamat!" success. Key UI details:
+
+- Sticky header always visible with live type badge (so context isn't lost when scrolled)
+- Name + contact in 2-column grid
+- Local/Remote toggle resets role when type changes
+- Single role dropdown sourced from `LOCAL_ROLES` or `REMOTE_ROLES` constants
+- Optional cohort dropdown — fetches upcoming/active cohorts from Firestore
+- Hardware as two-button toggle ("Yes, I can ship one" / "Not right now") — not required
+- Notes textarea (2 rows)
+- Positioned via CSS: `pt-[20vh]` `items-start` — top of card is always 20% from viewport top on both mobile and desktop. `max-h-[75vh]` overflow-y-auto.
+- Writes to `volunteers` collection.
+
+### `VolunteerCTA.tsx`
+
+Thin "use client" wrapper so `volunteer/page.tsx` stays a server component. Uses **`createPortal`** to render `VolunteerModal` on `document.body` — this escapes the GSAP `FadeUp` transform stacking context that would otherwise trap `position: fixed` inside the card boundary.
+
 ### `FadeUp.tsx`
 
 Reusable wrapper. Uses GSAP `fromTo` (`opacity: 0, y: 32` → `opacity: 1, y: 0`) triggered by ScrollTrigger at `top 90%`. Accepts `delay` (number) and `className` props. Starts with `style={{ opacity: 0 }}` to prevent flash.
 
-### `AnimatedPhaseList.tsx`
-
-Client component. Takes `phases: { number, title, sub, desc }[]`. GSAP animates:
-
-- Divider lines: `scaleX: 0 → 1` (origin-left)
-- Phase numbers: `opacity: 0, x: -32 → 1, 0`
-- Phase content: `opacity: 0, y: 20 → 1, 0` with 0.18s delay
-
-### `AnimatedOutcomeList.tsx`
-
-Client component. Takes `outcomes: { title, desc }[]`. Same divider animation as PhaseList. Numbers animate in from the right (`x: 32`). Content animates up.
+**Important:** FadeUp applies CSS `transform` which creates a stacking context. Any `position: fixed` modal rendered as a child will be trapped. Always use `createPortal` for modals that appear inside FadeUp-wrapped containers.
 
 ### `Nav.tsx`
 
-Sticky, `backdrop-blur-md`, border-bottom. Mobile hamburger with inline SVG (open/close states). Donate link is commented out pending hardware logistics. Links: About, Classes, Impact, Volunteer.
+Sticky, `backdrop-blur-md`, border-bottom. Mobile hamburger with inline SVG (open/close states). Donate link commented out. Link order (desktop + mobile): **Classes · Impact · Volunteer · About · Contact**
 
 ### `Footer.tsx`
 
-Dark (`#1c1a16`). Top band: "Help Us Reach Every Barangay" CTA with Volunteer + Contact buttons (Donate band commented out). Footer grid: brand blurb left, Navigate + Connect columns right. Bottom bar: tagline + copyright.
+Dark (`#1c1a16`). Top band: "Help Us Reach Every Barangay" with Volunteer + Contact buttons. Footer grid: brand blurb left, Navigate + Connect columns right. Connect column: **Facebook only** (dummy `#` link until page is live). Bottom bar: tagline + copyright.
 
 ---
 
@@ -256,11 +457,12 @@ Always initialize elements with `opacity: 0` in inline style to prevent flash be
 ## Design Constraints
 
 - **Mobile-first** — local parents browse on smartphones
-- **Static content only** — no API routes, no database, no auth
 - **No Donate link visible** — hidden from nav and footer until hardware shipping logistics are resolved
-- **No real session data yet** — Impact page uses simulated projections; amber banner makes this clear
-- **Classes are Coming Soon** — all register buttons disabled, dates TBD
+- **No real session data yet** — Impact page uses simulated projections when `NEXT_PUBLIC_LIVE_DATA=false`; amber banner makes this clear
+- **Cohort lifecycle enforced** — registration only open on `upcoming` cohorts; `active` shows "Registration Closed"; `completed` archived to Past Sessions tab
+- **1 cohort at a time** — Patrick teaches solo; the UI and data model reflect this constraint
 - **Image style** — local photography aesthetic, not cinematic. Candid, natural light, Samsung/Pixel camera feel.
+- **Facebook only** — no email, no Instagram, no Twitter anywhere on the site until those are set up
 
 ---
 
@@ -272,4 +474,6 @@ Prettier is configured. Run `npx prettier --write <file>` after edits. The PostT
 
 ## Deployment
 
-Netlify. Build command: `npm run build`. The site is SSR (not static export), so publish directory is `.next`. No environment variables required — fully static content, no backend.
+Netlify. Build command: `npm run build`. Repo: `github.com/p5150j/BarangayUswag`. Netlify auto-deploys on push to `main`.
+
+All environment variables must be added in Netlify Site Settings → Environment Variables. The `.env.local` file is gitignored and never committed.
