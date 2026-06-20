@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import FadeUp from "@/components/FadeUp";
+import VolunteerCTA from "@/components/VolunteerCTA";
 
 export const metadata: Metadata = {
   title: "Volunteer — Barangay Uswag",
@@ -184,12 +184,7 @@ export default function VolunteerPage() {
                   </ul>
                 </div>
 
-                <Link
-                  href="/contact"
-                  className="self-start px-7 py-3.5 bg-[#059669] text-white text-sm font-medium tracking-wide rounded-full hover:bg-[#047857] transition-colors"
-                >
-                  I Want to Help
-                </Link>
+                <VolunteerCTA type="local" label="I Want to Help" dark />
               </div>
             </FadeUp>
 
@@ -242,12 +237,7 @@ export default function VolunteerPage() {
                   </ul>
                 </div>
 
-                <Link
-                  href="/contact"
-                  className="self-start px-7 py-3.5 bg-[#1c1a16] text-white text-sm font-medium tracking-wide rounded-full hover:bg-[#3a3630] transition-colors"
-                >
-                  Pitch a Talk
-                </Link>
+                <VolunteerCTA type="remote" label="Pitch a Talk" />
               </div>
             </FadeUp>
           </div>
