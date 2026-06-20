@@ -24,11 +24,13 @@ export default function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-[#e8e3d8] bg-[#faf9f6]/90 backdrop-blur-md">
       <nav className="max-w-7xl mx-auto px-6 sm:px-10 h-16 flex items-center justify-between">
-        <Link
-          href="/"
-          className="font-serif text-lg font-bold text-[#1c1a16] hover:text-[#059669] transition-colors tracking-wide"
-        >
-          Barangay <em>Uswag</em>
+        <Link href="/" className="group flex flex-col leading-none gap-0.5">
+          <span className="text-[10px] tracking-[0.3em] uppercase font-medium text-[#8a8074] group-hover:text-[#059669] transition-colors">
+            Barangay
+          </span>
+          <span className="font-serif text-xl font-bold italic text-[#1c1a16] group-hover:text-[#059669] transition-colors leading-none">
+            Uswag
+          </span>
         </Link>
 
         <div className="hidden sm:flex items-center gap-8">

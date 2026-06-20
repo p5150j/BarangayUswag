@@ -39,8 +39,8 @@ const phases = [
 
 const outcomes = [
   {
-    title: "A real mobile app. On their phone.",
-    desc: "Every graduate leaves with a working app they designed and built themselves. Not a tutorial clone. Something they can hand to their nanay and say 'try it.'",
+    title: "A real community app. Built by the cohort.",
+    desc: "The cohort ships one working app together — something their barangay will actually use. Not a tutorial clone. Something every graduate can point to and say: we built this for our community.",
   },
   {
     title: "A certificate with their name on it.",
@@ -52,7 +52,7 @@ const outcomes = [
   },
   {
     title: "The ladder keeps going.",
-    desc: "Phase 2 cohorts go deeper: backend APIs, databases, and publishing to the app store. Kabataan who want to go further have somewhere to go. No dead ends.",
+    desc: "Advanced cohorts go deeper: code logic, databases, backend APIs. Kabataan who want to go further have somewhere to go. No dead ends.",
   },
 ];
 
