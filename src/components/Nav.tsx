@@ -32,12 +32,11 @@ export default function Nav() {
         </Link>
 
         <div className="hidden sm:flex items-center gap-8">
-          {navLink("/about", "About")}
           {navLink("/classes", "Classes")}
           {navLink("/impact", "Impact")}
           {navLink("/volunteer", "Volunteer")}
-          {/* Donate link hidden — hardware shipping logistics TBD */}
-          {/* <Link href="/donate" className="px-5 py-2 bg-[#1c1a16] text-[#faf9f6] text-sm font-medium tracking-wide rounded-full hover:bg-[#3a3630] transition-colors">Donate</Link> */}
+          {navLink("/about", "About")}
+          {navLink("/contact", "Contact")}
         </div>
 
         <button
@@ -72,11 +71,11 @@ export default function Nav() {
 
       {open && (
         <div className="sm:hidden border-t border-[#e8e3d8] bg-[#faf9f6] px-5 py-4 flex flex-col gap-4">
-          {navLink("/about", "About")}
           {navLink("/classes", "Classes")}
           {navLink("/impact", "Impact")}
           {navLink("/volunteer", "Volunteer")}
-          {/* Donate link hidden — hardware shipping logistics TBD */}
+          {navLink("/about", "About")}
+          {navLink("/contact", "Contact")}
         </div>
       )}
     </header>

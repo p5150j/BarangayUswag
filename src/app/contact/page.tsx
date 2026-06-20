@@ -7,12 +7,6 @@ export const metadata: Metadata = {
     "Get in touch with Barangay Uswag. Email us or find us in Iloilo City, Philippines.",
 };
 
-const social = [
-  { label: "Facebook", href: "#" },
-  { label: "Instagram", href: "#" },
-  { label: "Twitter / X", href: "#" },
-];
-
 export default function ContactPage() {
   return (
     <main>
@@ -42,21 +36,22 @@ export default function ContactPage() {
             {/* Left: contact info */}
             <FadeUp>
               <div className="flex flex-col gap-10">
-                {/* Email */}
+                {/* Facebook */}
                 <div>
                   <p className="text-xs tracking-[0.3em] uppercase text-[#8a8074] font-medium mb-3">
-                    Email
+                    Message Us
+                  </p>
+                  <p className="text-[#8a8074] text-sm leading-relaxed max-w-sm mb-4">
+                    The fastest way to reach us is on Facebook. Send a message
+                    for general inquiries, volunteer applications, hardware
+                    donations, or partnership conversations.
                   </p>
                   <a
-                    href="mailto:hello@barangayuswag.org"
-                    className="font-serif text-2xl sm:text-3xl font-bold text-[#1c1a16] hover:text-[#059669] transition-colors"
+                    href="#"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#1877F2] hover:bg-[#1565d8] text-white text-sm font-medium tracking-wide rounded-full transition-colors"
                   >
-                    hello@barangayuswag.org
+                    Message on Facebook
                   </a>
-                  <p className="mt-2 text-[#8a8074] text-sm leading-relaxed max-w-sm">
-                    For general inquiries, volunteer applications, hardware
-                    donations, and partnership conversations.
-                  </p>
                 </div>
 
                 {/* Location */}
@@ -78,24 +73,6 @@ export default function ContactPage() {
                     </a>
                     .
                   </p>
-                </div>
-
-                {/* Social */}
-                <div>
-                  <p className="text-xs tracking-[0.3em] uppercase text-[#8a8074] font-medium mb-4">
-                    Follow Along
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    {social.map(({ label, href }) => (
-                      <a
-                        key={label}
-                        href={href}
-                        className="px-5 py-2.5 border border-[#e8e3d8] rounded-full text-sm text-[#1c1a16] hover:border-[#1c1a16] hover:bg-[#f5f3ee] transition-colors"
-                      >
-                        {label}
-                      </a>
-                    ))}
-                  </div>
                 </div>
               </div>
             </FadeUp>

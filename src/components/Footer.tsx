@@ -10,12 +10,7 @@ const links = [
   { label: "Contact", href: "/contact" },
 ];
 
-const social = [
-  { label: "Facebook", href: "#" },
-  { label: "Instagram", href: "#" },
-  { label: "Twitter / X", href: "#" },
-  { label: "hello@barangayuswag.org", href: "mailto:hello@barangayuswag.org" },
-];
+const social = [{ label: "Facebook", href: "#" }];
 
 export default function Footer() {
   return (
