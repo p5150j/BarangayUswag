@@ -34,10 +34,10 @@ export default function Nav() {
         </Link>
 
         <div className="hidden sm:flex items-center gap-8">
-          {navLink("/classes", "Classes")}
-          {navLink("/impact", "Impact")}
-          {navLink("/volunteer", "Volunteer")}
-          {navLink("/about", "About")}
+          {navLink("/classes", "Libre Classes")}
+          {navLink("/impact", "Impact Data")}
+          {navLink("/volunteer", "Ways to Volunteer")}
+          {navLink("/about", "Learn More")}
           {navLink("/contact", "Contact")}
         </div>
 
@@ -73,10 +73,10 @@ export default function Nav() {
 
       {open && (
         <div className="sm:hidden border-t border-[#e8e3d8] bg-[#faf9f6] px-5 py-4 flex flex-col gap-4">
-          {navLink("/classes", "Classes")}
-          {navLink("/impact", "Impact")}
-          {navLink("/volunteer", "Volunteer")}
-          {navLink("/about", "About")}
+          {navLink("/classes", "Libre Classes")}
+          {navLink("/impact", "Impact Data")}
+          {navLink("/volunteer", "Ways to Volunteer")}
+          {navLink("/about", "Learn More")}
           {navLink("/contact", "Contact")}
         </div>
       )}

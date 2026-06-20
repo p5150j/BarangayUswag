@@ -367,6 +367,65 @@ export default function ClassesPage() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section className="py-20 sm:py-28 border-t border-[#e8e3d8]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10">
+          <FadeUp>
+            <p className="text-xs tracking-[0.35em] uppercase text-[#059669] mb-4 font-medium">
+              Mga Tanong · FAQ
+            </p>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1c1a16] mb-14 max-w-xl leading-tight">
+              Everything parents want to know.
+            </h2>
+          </FadeUp>
+          <div className="grid gap-x-16 gap-y-10 sm:grid-cols-2">
+            {[
+              {
+                q: "Is this really free? No hidden costs?",
+                a: "Yes. Every seat, every session, every device. Libre means libre. No registration fee, no materials fee, no optional costs. If it costs anything, it isn't Barangay Uswag.",
+              },
+              {
+                q: "Does my child need a laptop or phone?",
+                a: "Not required — we bring devices for every kid who needs one. But if your child has a laptop or phone, bring it. More devices means more hands-on time for everyone.",
+              },
+              {
+                q: "What age is this for?",
+                a: "Kabataan aged 10–18. No prior experience needed, no tech background required. We start from zero.",
+              },
+              {
+                q: "Where are sessions held?",
+                a: "In local barangay reading centers and public libraries across Iloilo City. The specific venue is listed on each cohort card above.",
+              },
+              {
+                q: "How long is the program?",
+                a: "4–8 weekly sessions, one cohort at a time. Each session runs approximately 3 hours. The full schedule is posted when registration opens.",
+              },
+              {
+                q: "What if my child misses a session?",
+                a: "Each phase builds on the last, so attendance matters. If your child misses one, message us on Facebook and we'll do our best to catch them up before the next session.",
+              },
+              {
+                q: "Who is teaching?",
+                a: "Kuya Patrick Ortell, founder of Barangay Uswag. 14 years building apps and mentoring founders at Techstars in the US — now teaching in Iloilo.",
+              },
+              {
+                q: "Is this safe? Who supervises?",
+                a: "Sessions run in public libraries and barangay reading centers with adult volunteers present throughout. Parents are welcome — and encouraged — to sit in at any session.",
+              },
+            ].map(({ q, a }) => (
+              <FadeUp key={q}>
+                <div>
+                  <p className="font-serif text-lg font-bold text-[#1c1a16] mb-2 leading-snug">
+                    {q}
+                  </p>
+                  <p className="text-sm text-[#8a8074] leading-relaxed">{a}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Bottom CTA */}
       <section className="border-t border-[#e8e3d8] py-16 sm:py-20 bg-[#f5f3ee]">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">

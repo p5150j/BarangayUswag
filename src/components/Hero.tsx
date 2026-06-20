@@ -113,7 +113,7 @@ export default function Hero() {
             href="/classes"
             className="px-7 py-3.5 bg-white text-[#1c1a16] text-sm font-medium tracking-wide rounded-full hover:bg-[#f5f3ee] transition-colors text-center"
           >
-            Find a Workshop
+            Enroll Your Child
           </Link>
           <Link
             href="/volunteer"
