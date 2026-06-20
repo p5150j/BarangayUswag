@@ -177,7 +177,7 @@ export default function RegistrationModal({
                   className={inputCls}
                 >
                   <option value="">Select age</option>
-                  {[10, 11, 12, 13, 14, 15, 16].map((a) => (
+                  {[10, 11, 12, 13, 14, 15, 16, 17, 18].map((a) => (
                     <option key={a} value={a}>
                       {a} years old
                     </option>

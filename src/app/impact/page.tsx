@@ -67,7 +67,7 @@ const ages = [
   { range: "10–11", pct: 17 },
   { range: "12–13", pct: 40 },
   { range: "14–15", pct: 30 },
-  { range: "16", pct: 13 },
+  { range: "16–18", pct: 13 },
 ];
 
 const genderData = [
@@ -321,13 +321,13 @@ function useLiveData() {
         "10–11": 0,
         "12–13": 0,
         "14–15": 0,
-        "16": 0,
+        "16–18": 0,
       };
       for (const r of regs) {
         if (r.age <= 11) ageBuckets["10–11"]++;
         else if (r.age <= 13) ageBuckets["12–13"]++;
         else if (r.age <= 15) ageBuckets["14–15"]++;
-        else ageBuckets["16"]++;
+        else ageBuckets["16–18"]++;
       }
       const total = regs.length || 1;
       setLiveAges(

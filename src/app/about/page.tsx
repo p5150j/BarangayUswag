@@ -7,7 +7,7 @@ import AnimatedOutcomeList from "@/components/AnimatedOutcomeList";
 export const metadata: Metadata = {
   title: "About — Barangay Uswag",
   description:
-    "Our mission, curriculum, and the story behind Barangay Uswag — free coding education for kids aged 10–16 in Iloilo City, Philippines.",
+    "Our mission, curriculum, and the story behind Barangay Uswag — free coding education for kids aged 10–18 in Iloilo City, Philippines.",
 };
 
 const phases = [
@@ -26,7 +26,7 @@ const phases = [
   {
     number: "03",
     title: "Build",
-    sub: "React Native & Expo",
+    sub: "Bring the Wireframes to Life",
     desc: "Laptops open. The skeleton is already there. Kabataan build the visible layer: screens, buttons, colors, forms. Every piece wires back to the wireframe they drew and the data model they agreed on. They can see every design decision become real code.",
   },
   {

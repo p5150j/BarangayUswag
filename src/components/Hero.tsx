@@ -104,7 +104,7 @@ export default function Hero() {
           ref={subRef}
           className="text-white/65 text-base sm:text-xl max-w-lg leading-relaxed mb-10"
         >
-          Libre workshops para sa kabataan aged 10–16 in Iloilo&apos;s libraries
+          Libre workshops para sa kabataan aged 10–18 in Iloilo&apos;s libraries
           and barangay reading centers. Padayon. Ang kinabukasan starts here.
         </p>
 

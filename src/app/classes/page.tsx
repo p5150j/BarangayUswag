@@ -34,7 +34,7 @@ const PHASES = [
     sub: "Design Thinking & Community Problem",
   },
   { num: 2, title: "Plan the Build", sub: "Data Model & App Blueprint" },
-  { num: 3, title: "Build", sub: "React Native & Expo" },
+  { num: 3, title: "Build", sub: "Bring the Wireframes to Life" },
   { num: 4, title: "Ipakita", sub: "Capstone · Demo Day" },
 ];
 
@@ -110,7 +110,7 @@ function CohortCard({
             value: cohort.startDate || "TBD",
             muted: !cohort.startDate,
           },
-          { label: "Ages", value: "10–16" },
+          { label: "Ages", value: "10–18" },
           {
             label: "Sessions",
             value: cohort.sessionCount
@@ -237,7 +237,7 @@ export default function ClassesPage() {
               One cohort at a time. Every seat libre.
             </h1>
             <p className="mt-7 text-white/60 text-base sm:text-xl max-w-2xl leading-relaxed">
-              Four phases over 4–8 weeks. Open to kabataan aged 10–16 across
+              Four phases over 4–8 weeks. Open to kabataan aged 10–18 across
               Iloilo City. We run one cohort at a time so every kid gets the
               full foundation.
             </p>

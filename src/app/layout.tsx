@@ -19,7 +19,7 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Barangay Uswag — Free Coding Workshops for Iloilo's Youth",
   description:
-    "Free coding workshops for kids aged 10–16 in local reading centers across Iloilo City, Philippines. 100% Volunteer Driven. 100% Free for the Community.",
+    "Free coding workshops for kids aged 10–18 in local reading centers across Iloilo City, Philippines. 100% Volunteer Driven. 100% Free for the Community.",
 };
 
 export default function RootLayout({

@@ -68,7 +68,7 @@ export default function Footer() {
               Barangay <em>Uswag</em>
             </p>
             <p className="text-sm text-white/45 leading-relaxed">
-              Free coding education for kids aged 10–16 in libraries and
+              Free coding education for kids aged 10–18 in libraries and
               community reading centers across Iloilo City, Philippines.
             </p>
             <p className="mt-4 text-sm text-[#4ade80] font-medium">
