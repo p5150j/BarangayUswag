@@ -134,7 +134,7 @@ export default function VolunteerPage() {
 
       {/* Split volunteer tracks */}
       <section className="py-20 sm:py-28 border-b border-[#e8e3d8]">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10">
+        <div className="max-w-screen-2xl mx-auto px-6 sm:px-10">
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Local — dark card */}
             <FadeUp delay={0}>
@@ -168,23 +168,7 @@ export default function VolunteerPage() {
                   ))}
                 </ul>
 
-                <div className="border-t border-white/10 pt-8 mb-8">
-                  <p className="text-xs tracking-[0.25em] uppercase text-white/30 mb-5">
-                    What you get
-                  </p>
-                  <ul className="space-y-3">
-                    {localPerks.map((perk) => (
-                      <li key={perk} className="flex items-start gap-3">
-                        <span className="text-[#4ade80] mt-0.5 shrink-0 font-bold">
-                          ✓
-                        </span>
-                        <span className="text-white/65 text-sm">{perk}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <VolunteerCTA type="local" label="I Want to Help" dark />
+                <VolunteerCTA type="local" label="Volunteer Locally" dark />
               </div>
             </FadeUp>
 
@@ -221,23 +205,49 @@ export default function VolunteerPage() {
                   ))}
                 </ul>
 
-                <div className="border-t border-[#e8e3d8] pt-8 mb-8">
-                  <p className="text-xs tracking-[0.25em] uppercase text-[#8a8074] mb-5">
-                    What you get
-                  </p>
-                  <ul className="space-y-3">
-                    {remotePerks.map((perk) => (
-                      <li key={perk} className="flex items-start gap-3">
-                        <span className="text-[#059669] mt-0.5 shrink-0 font-bold">
-                          ✓
-                        </span>
-                        <span className="text-[#8a8074] text-sm">{perk}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <VolunteerCTA type="remote" label="Get Involved Remotely" />
+              </div>
+            </FadeUp>
+          </div>
 
-                <VolunteerCTA type="remote" label="Pitch a Talk" />
+          {/* What you get — colored cards */}
+          <div className="grid gap-8 lg:grid-cols-2 mt-8">
+            <FadeUp delay={0}>
+              <div className="bg-[#059669] rounded-2xl p-8">
+                <p className="text-xs tracking-[0.25em] uppercase text-white/60 mb-5 font-medium">
+                  What Local Volunteers Get
+                </p>
+                <ul className="grid sm:grid-cols-2 gap-4">
+                  {localPerks.map((perk) => (
+                    <li key={perk} className="flex items-start gap-3">
+                      <span className="text-white mt-0.5 shrink-0 font-bold">
+                        ✓
+                      </span>
+                      <span className="text-white/90 text-sm leading-relaxed">
+                        {perk}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeUp>
+            <FadeUp delay={0.1}>
+              <div className="bg-[#1c1a16] rounded-2xl p-8">
+                <p className="text-xs tracking-[0.25em] uppercase text-white/30 mb-5 font-medium">
+                  What Remote Volunteers Get
+                </p>
+                <ul className="grid sm:grid-cols-2 gap-4">
+                  {remotePerks.map((perk) => (
+                    <li key={perk} className="flex items-start gap-3">
+                      <span className="text-[#4ade80] mt-0.5 shrink-0 font-bold">
+                        ✓
+                      </span>
+                      <span className="text-white/65 text-sm leading-relaxed">
+                        {perk}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </FadeUp>
           </div>

@@ -1,4 +1,8 @@
+import Link from "next/link";
 import FadeUp from "./FadeUp";
+
+const DECK_URL =
+  "https://docs.google.com/presentation/d/1tL1Ks1ynf0iqKAC4pAPQMdxGzpug6f5SfI9T-VxEMTA/view";
 
 const cards = [
   {
@@ -7,6 +11,7 @@ const cards = [
     heading: "Future-Proof Your Child's Kinabukasan",
     body: "Our curriculum builds logical thinking, creativity, and digital fluency. The skills that define tomorrow's careers. Every session is safe, guided, and completely free.",
     large: true,
+    cta: { label: "See Upcoming Classes", href: "/classes" },
   },
   {
     image: "/leaders-card.png",
@@ -14,6 +19,7 @@ const cards = [
     heading: "Uswag for Your Community. Zero Cost.",
     body: "Partner with us at no cost. We bring volunteers, curriculum, and devices. You provide the space.",
     large: false,
+    cta: { label: "View the Partnership Deck", href: DECK_URL, external: true },
   },
   {
     image: "/volunteers-card.png",
@@ -21,6 +27,7 @@ const cards = [
     heading: "Show Up. Any Way You Can.",
     body: "Drive a kid to class. Teach a Zoom session from New York. Post flyers at the palengke. There's a role for every kapwa.",
     large: false,
+    cta: { label: "Get Involved", href: "/volunteer" },
   },
 ];
 
@@ -87,6 +94,24 @@ export default function AudiencePillars() {
                       {card.body}
                     </p>
                   )}
+                  {card.cta &&
+                    (card.cta.external ? (
+                      <a
+                        href={card.cta.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block mt-4 px-5 py-2 bg-white/15 hover:bg-white/25 border border-white/30 text-white text-xs font-medium tracking-wide rounded-full transition-colors backdrop-blur-sm"
+                      >
+                        {card.cta.label} →
+                      </a>
+                    ) : (
+                      <Link
+                        href={card.cta.href}
+                        className="inline-block mt-4 px-5 py-2 bg-white/15 hover:bg-white/25 border border-white/30 text-white text-xs font-medium tracking-wide rounded-full transition-colors backdrop-blur-sm"
+                      >
+                        {card.cta.label} →
+                      </Link>
+                    ))}
                 </div>
               </div>
             ))}

@@ -10,7 +10,18 @@ Guidance for Claude Code when working in this repository.
 
 **Founded by:** Patrick Ortell (Kuya Patrick) — a Techstars mentor and software engineer who moved to Iloilo City and wants to share the tech skills that built his career with the kabataan on his street.
 
-**Program reality:** Patrick teaches 1 cohort at a time, personally. 4–8 weekly sessions covering 4 phases sequentially. Cannot run multiple cohorts simultaneously.
+**Program reality:** Patrick teaches 1 cohort at a time, personally. 4 phases, 4–8 weekly sessions. Cannot run multiple cohorts simultaneously.
+
+**Curriculum philosophy:** The cohort builds ONE shared community app together — not individual projects. The app solves a real problem the kids identify in their own barangay (bulletin board, reporting tool, event calendar, etc.). After Demo Day the community owns it. Patrick scaffolds the hard technical work (data model, navigation, Firestore config, app skeleton) OUTSIDE of class between sessions, so in-class time stays in the understandable layer: UI, layout, color, forms, connecting screens to real data. Kids never hit a wall they can't see past. Advanced topics (code logic, databases, state management) are explicitly framed as "the next cohort" — a door to walk through, not a wall.
+
+**The 4 phases (revised):**
+
+| #   | Phase          | What happens                                                                                                                                                                                                                                                                                          |
+| --- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Think + Design | Design thinking, empathy mapping, identify the community problem, wireframe the solution. Phases 1 and 2 of the old curriculum combined into one session — moves fast, stays hands-on.                                                                                                                |
+| 2   | Plan the Build | Take the wireframes → map the data model as a class → agree on exactly what the app needs to do. This is the contract. Patrick uses this to scaffold the app skeleton, config, and data layer outside of class before Phase 3.                                                                        |
+| 3   | Build          | In class: UI components, screens, forms, buttons. Patrick points to the wireframe — "we drew this, now we're coding it." Points to the data model — "we need these form fields because we decided to store this." Kids change colors, corner radii, copy. They see design decisions become real code. |
+| 4   | Ipakita        | Demo Day. The working app is presented to the barangay captain, parents, SK officers. The app stays. The community owns it. Patrick previews the advanced cohort: "the logic and the database are next — today you learned to make something your tita would actually use."                           |
 
 **Primary audiences:**
 
@@ -497,11 +508,18 @@ https://docs.google.com/document/d/124gPr0mIeAXYUInHI26BEv4gBFolNNHoeAMNlgCt3HM/
 Items discussed but not yet built:
 
 - **Facebook page** — not live yet. Contact page and footer have `href="#"` placeholders. Swap to real URL when ready.
+- **Cohort map embed** — when a venue is locked, add optional `mapEmbedUrl` field to the `cohorts` Firestore doc. Render a Google Maps iframe in CohortCard below the details strip when the field exists. Useful for parents figuring out trike routes. Add the field via /kuya when ready. Same iframe pattern as the contact page.
 - **Donate flow** — `/donate` page exists but is hidden from nav. Hardware shipping logistics TBD before enabling.
 - **Short-form reels** — 9:16 vertical video per curriculum topic, filmed after first cohort runs. Full explainer video is on hold.
+- **Session photo archive** — one feature set that pays off in three places. Build after first cohort runs. Needs Firebase Storage wired up (bucket is already in `.env.local` as `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` but never connected). Full scope:
+  1. **Upload in /kuya** — photo upload field on the session log form. Photos stored in Firebase Storage keyed by `cohortId/sessionId`.
+  2. **Past Sessions tab** — replace the current dumb compact row (`PastCohortCard` in `classes/page.tsx`) with a rich cohort archive card: hero photo, grad count, apps shipped, volunteer hours from Firestore sessions, highlight from the notes field. Make it feel like a real record of something that happened.
+  3. **Impact gallery** — swap the 6 AI-generated placeholder images (`gallery-1.png` through `gallery-6.png`) with real photos pulled from Firebase Storage. Patrick should photograph every session from day one — that content is what makes the whole site authentic.
 - **Alumni survey system** — needed to track Community Multiplier (impact dimension 04). Post-cohort follow-up at 6 and 12 months.
 - **Advanced cohorts / hackathons** — mentioned on About page as "What Comes Next" but not built.
-- **Volunteer page kanban redesign** — see full spec below.
+- **Volunteer page kanban redesign** — see full spec below. **Do not build until first cohort is running with a real venue and real dates.** Current volunteer page is sufficient for pre-launch. Scope depends entirely on how many students/sessions actually materialize.
+- **Age range: 10–18** — expanded from 10–16. All 9 touchpoints updated: layout/about/classes/hero/footer copy, RegistrationModal dropdown (10–18), and impact page age buckets (top bucket is now "16–18").
+- **AI sessions track** — after the core 4-phase curriculum is proven, add an AI literacy track (Phase 5 or standalone). DEVCON Iloilo already runs AI sessions for adults/university students via their "Seeds of Intelligence" program with DICT. Barangay Uswag's version would bring this down to the 10–18 age group, practical and non-theoretical: using AI tools to accelerate their own app building, not just learning what AI is.
 
 ### Volunteer Page — Kanban Redesign (Future)
 

@@ -19,3 +19,7 @@ tsconfig.tsbuildinfo
 # Logs
 *.log
 npm-debug.log*
+
+# Firebase service account keys — never commit
+*-firebase-adminsdk-*.json
+*.serviceAccount.json

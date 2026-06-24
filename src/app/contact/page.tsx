@@ -29,6 +29,37 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* Host a session CTA */}
+      <section className="bg-[#f5f3ee] border-b border-[#e8e3d8] py-12 sm:py-16">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10">
+          <FadeUp>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+              <div>
+                <p className="text-xs tracking-[0.3em] uppercase text-[#059669] font-medium mb-2">
+                  For Barangay Leaders & Venue Partners
+                </p>
+                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1c1a16]">
+                  Want to host a session?
+                </h2>
+                <p className="mt-2 text-[#8a8074] text-sm leading-relaxed max-w-lg">
+                  We bring everything: volunteers, curriculum, and devices. You
+                  provide the space. See exactly what hosting looks like and
+                  what we ask of partner venues.
+                </p>
+              </div>
+              <a
+                href="https://docs.google.com/presentation/d/1tL1Ks1ynf0iqKAC4pAPQMdxGzpug6f5SfI9T-VxEMTA/view"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 inline-block px-7 py-3 bg-[#059669] hover:bg-[#047857] text-white text-sm font-medium tracking-wide rounded-full transition-colors"
+              >
+                View the Partnership Deck →
+              </a>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
       {/* Contact details + map */}
       <section className="py-20 sm:py-28">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
@@ -47,7 +78,9 @@ export default function ContactPage() {
                     donations, or partnership conversations.
                   </p>
                   <a
-                    href="#"
+                    href="https://www.facebook.com/profile.php?id=61591497535613"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-[#1877F2] hover:bg-[#1565d8] text-white text-sm font-medium tracking-wide rounded-full transition-colors"
                   >
                     Message on Facebook

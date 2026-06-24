@@ -10,7 +10,12 @@ const links = [
   { label: "Contact", href: "/contact" },
 ];
 
-const social = [{ label: "Facebook", href: "#" }];
+const social = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61591497535613",
+  },
+];
 
 export default function Footer() {
   return (
@@ -103,12 +108,14 @@ export default function Footer() {
               <ul className="flex flex-col gap-3">
                 {social.map(({ label, href }) => (
                   <li key={label}>
-                    <Link
+                    <a
                       href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-sm text-white/55 hover:text-white transition-colors"
                     >
                       {label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
